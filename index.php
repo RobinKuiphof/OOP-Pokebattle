@@ -2,11 +2,10 @@
 
 require 'Pokemon.php';
 
-print_r($pickacu);
 
+print_r($pokemon);
 
-
-
+echo $pokemon->getPopulation($pickachu, $charmeleon);
 
 
 
