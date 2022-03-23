@@ -1,8 +1,7 @@
 
 <?php 
     $alive = 0;
-    $pickachu = new Pickachu('Pickachu', 'Lightning', 60, array("type" => "fire", "multiplier" => 1.5), array("type" => "Fighting", "value" => 20), 60, 50,20);
-    $charmeleon = new Charmeleon('Charmeleon', 'Fire', 60, array("type" => "Water", "multiplier" => 2), array("type" => "Lightning", "value" => 10), 60, 10,30);
+    
     // energy type , weakness,
 
 
@@ -15,7 +14,16 @@
             parent::__construct($name, $energyType, $hitPoints, $weakness, $resistance, $health);
             $this->attack1 = $attack1;
             $this->attack2 = $attack2;
-        }   
+        }
+
+        public function atacks($type){
+            if($type == 1){
+                return array( "name" => "Electric Ring", "dmg" => $this->attack1);
+            }elseif($type ==2){
+                return array( "name" => "Pika Punch", "dmg" => $this->attack2);
+            }
+        }
+
     }
 
     class Charmeleon Extends Pokemon{
@@ -28,6 +36,15 @@
             $this->attack1 = $attack1;
             $this->attack2 = $attack2;
         }   
+
+        public function atacks($type){
+            if($type == 1){
+                return array( "name" => "Head butt", "dmg" => $this->attack1);
+            }elseif($type ==2){
+                return array( "name" => "Flare", "dmg" => $this->attack2);
+            }
+        }
+
     }
 
 
@@ -39,6 +56,7 @@
         public $weakness;
         public $resistance;
         public $health;
+        public static $alive;
 
         public function __construct($name, $energyType, $hitPoints, $weakness, $resistance, $health){
             $this->name = $name;
@@ -47,24 +65,89 @@
             $this->weakness = $weakness;
             $this->resistance = $resistance;
             $this->health = $health;
-            $alive = $alive + 1;
+            Self::$alive = $this->getPopulation() + 1;
         }
 
-        public function getPopulation($pickachu, $charmeleon){    
-           return $alive;
+        public function getPopulation(){    
+           return Self::$alive;
         }
     }
-    
+
 
     class Fight{
+
+        public $pickachu;
+        public $charmeleon;
+
+
+        public function __construct($pickachu, $charmeleon){
+            $this->pickachu = $pickachu;
+            $this->charmeleon = $charmeleon;
+        }
+
+        public function atack1($pickachu, $charmeleon){
+            $atack = $pickachu->atacks(1);
+            $weakness = new Weakness($charmeleon, $pickachu);
+            $resistance = new Resistance($charmeleon, $pickachu);
+            $dmg = $atack['dmg']*$weakness->calcweakness();
+            $dmg = $dmg-$resistance->calcresistance();
+            $pickachu->health = ($pickachu->health - $dmg);
+            return $pickachu->name . ' Atacked '. $charmeleon->name . ' with '. $atack['name'] . ' and did ' . $dmg . ' damage. <br>Pokemon now has ' . $pickachu->health . ' health left!';
+        }
+
+        public function atack2($pickachu, $charmeleon){
+            $dmg = $pickachu->atacks(0);
+            $weakness = new Weakness($charmeleon, $pickachu);
+            $resistance = new Resistance($charmeleon, $pickachu);
+            $dmg = $dmg['dmg']*$weakness->calcweakness();
+            $dmg = $dmg-$resistance->calcresistance();
+            $pickachu->health = ($pickachu->health - $dmg);
+
+            return $pickachu->name . ' Atacked '. $charmeleon->name . ' and did ' . $dmg . ' damage. <br>'. $pickachu->name . ' now has ' . $pickachu->health . ' health left!';
+        }
 
     }
 
     class Weakness{
         
+        public $pokemon1; // atack
+        public $pokemon2; // defend
+
+        public function __construct($pokemon1, $pokemon2){
+            $this->pokemon1 = $pokemon1;
+            $this->pokemon2 = $pokemon2;
+        }
+
+        public function calcweakness(){
+            if($this->pokemon1->energyType == $this->pokemon2->weakness['type']){
+                return $this->pokemon2->weakness['value'];
+            }else{
+                return 1;
+            }
+        }
+
     }
     
+    class Resistance{
 
+        public $pokemon1; // atack
+        public $pokemon2; // defend
+
+        public function __construct($pokemon1, $pokemon2){
+            $this->pokemon1 = $pokemon1;
+            $this->pokemon2 = $pokemon2;
+        }
+
+        public function calcresistance(){
+            
+            if($this->pokemon1->energyType == $this->pokemon2->resistance['type']){
+                return $this->pokemon2->resistance['value'];
+            }else{
+                return 0;
+            }
+        }
+    }
+    
 
 
 
