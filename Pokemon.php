@@ -6,7 +6,7 @@
      
         public $name;
         public $energyType;
-        public $hitPoints;
+        protected $hitPoints;
         public $weakness;
         public $resistance;
         public $health;

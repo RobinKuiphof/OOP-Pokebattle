@@ -4,8 +4,8 @@
 
 class Weakness{
         
-    public $pokemon1; // atack
-    public $pokemon2; // defend
+    protected $pokemon1; // atack
+    protected $pokemon2; // defend
 
     public function __construct($pokemon1, $pokemon2){
         $this->pokemon1 = $pokemon1;

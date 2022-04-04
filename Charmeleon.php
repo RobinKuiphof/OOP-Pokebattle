@@ -3,8 +3,8 @@
 
 class Charmeleon Extends Pokemon{
 
-    public $attack1;
-    public $attack2;
+    protected $attack1;
+    protected $attack2;
 
     public function __construct($name, $energyType, $hitPoints, $weakness, $resistance, $health, $attack1, $attack2){
         parent::__construct($name, $energyType, $hitPoints, $weakness, $resistance, $health);

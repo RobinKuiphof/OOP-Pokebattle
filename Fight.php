@@ -3,8 +3,8 @@
 
 class Fight{
 
-    public $pokemon1;
-    public $pokemon2;
+    protected $pokemon1;
+    protected $pokemon2;
 
 
     public function __construct($pokemon1, $pokemon2){
