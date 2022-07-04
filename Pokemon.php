@@ -16,8 +16,8 @@
             $this->name = $name;
             $this->energyType = $energyType;
             $this->hitPoints = $hitPoints;
-            $this->weakness = $weakness;
-            $this->resistance = $resistance;
+            $this->weakness =  new Weakness($weakness);
+            $this->resistance = new Resistance($resistance);
             $this->health = $health;
             Self::$alive = $this->getPopulation() + 1;
         }

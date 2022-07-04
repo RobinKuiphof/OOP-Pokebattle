@@ -12,7 +12,7 @@ class Charmeleon Extends Pokemon{
         $this->attack2 = $attack2;
     }   
 
-    public function atacks($type){
+    public function attacks($type){
         if($type == 1){
             return array( "name" => "Head butt", "dmg" => $this->attack1);
         }elseif($type ==2){

@@ -16,9 +16,9 @@ require 'Weakness.php';
     
     $attack = new Fight($pickachu, $charmeleon);
     echo $pickachu->health . ' Pickachu health <br>';
-    echo $attack->atack1($pickachu,$charmeleon). '<br>';
+    echo $attack->attack1($pickachu,$charmeleon). '<br>';
     echo $charmeleon->health . ' Charmeleon health <br>';
-    echo $attack->atack1($charmeleon,$pickachu). '<br>'; 
+    echo $attack->attack1($charmeleon,$pickachu). '<br>'; 
 
     echo Pokemon::getPopulation() . ' Pokemons alive <br>';
 ?>
