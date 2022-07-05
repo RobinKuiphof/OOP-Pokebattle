@@ -1,7 +1,6 @@
 <?php
 
 require 'Pokemon.php';
-require 'Fight.php';
 require 'Pickachu.php';
 require 'Charmeleon.php';
 require 'Resistance.php';
@@ -14,11 +13,11 @@ require 'Weakness.php';
 
     echo Pokemon::getPopulation() . ' Pokemons alive <br>';
     
-    $attack = new Fight($pickachu, $charmeleon);
+   
     echo $pickachu->health . ' Pickachu health <br>';
-    echo $attack->attack1($pickachu,$charmeleon). '<br>';
+    echo $charmeleon->attack($pickachu, 1). '<br>';
     echo $charmeleon->health . ' Charmeleon health <br>';
-    echo $attack->attack1($charmeleon,$pickachu). '<br>'; 
+    echo $pickachu->attack($charmeleon, 1). '<br>';
 
     echo Pokemon::getPopulation() . ' Pokemons alive <br>';
 ?>
